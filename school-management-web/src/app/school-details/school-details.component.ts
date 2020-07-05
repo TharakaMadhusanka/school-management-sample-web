@@ -15,13 +15,16 @@ export class SchoolDetailsComponent implements OnInit {
   noOfRows = '10';
   searchBy = '';
 
+  schoolslist: [] = [];
+
   ngOnInit() {
     this.getSchoolsList();
   }
 
+  // To get list of schools
   getSchoolsList() {
     this.schoolService.getListOfSchools(this.pageNumber, this.noOfRows, this.searchBy).subscribe((data:any) => {
-      console.log(data);
+      this.schoolslist = data;
     });
   }
 

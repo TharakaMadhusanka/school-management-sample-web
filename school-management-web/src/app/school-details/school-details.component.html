@@ -1,1 +1,39 @@
-<p>school-details works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-xs-12 col-sm-12">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            <mat-form-field>
+                                <mat-label>Input</mat-label>
+                                <input matInput>
+                            </mat-form-field>
+                        </th>
+                        <th>
+                            <button type="button" class="btn btn-warning">New</button>
+                        </th>
+                    </tr>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">School Name</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Number Of Students</th>
+                    <th scope="col">&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let school of schoolslist; let index = index">
+                    <th scope="row">{{index + 1}}</th>
+                    <td>{{school.SchoolName}}</td>
+                    <td>{{school.Address}}</td>
+                    <td>{{school.NoOfRegisteredStudents}}</td>
+                    <td>
+                        <button type="button"></button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+    </div>
+</div>

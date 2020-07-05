@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { SchoolDetailsComponent } from './school-details.component';
 import { SchoolDetailsService } from './school-details.service';
 import { SchoolDetailsRoutingModule } from './school-details-routing.module';
+import { MatInputModule, MatFormFieldModule } from '@angular/material';
+
 
 @NgModule({
   declarations: [
@@ -10,7 +12,10 @@ import { SchoolDetailsRoutingModule } from './school-details-routing.module';
   ],
   imports: [
     CommonModule,
-    SchoolDetailsRoutingModule
+    SchoolDetailsRoutingModule,
+    MatInputModule,
+    MatFormFieldModule
+    
   ],
   providers: [
     SchoolDetailsService
