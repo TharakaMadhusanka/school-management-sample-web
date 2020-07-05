@@ -6,25 +6,14 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AppConfigService {
 
-  private appConfig: any;
+  public appConfigData: any;
 
-  constructor(private http: HttpClient ) { }
+  constructor(private http: HttpClient) { }
 
-  loadAppConfig() {
-    return this.http.get('/assets/app.config.json')
-      .toPromise()
-      .then(data => {
-        this.appConfig = data;
-      });
-  }
-
-  // To return the app config data
-  get configdata () {
-    if (!this.appConfig) {
-      throw Error('Config file not loaded!');
-    }
-
-    return this.appConfig;
+  async loadAppConfig() {
+    const data = await this.http.get('/assets/app.config.json')
+                                .toPromise();
+    this.appConfigData = data;
   }
 
 }
