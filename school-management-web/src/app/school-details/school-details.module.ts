@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SchoolDetailsComponent } from './school-details.component';
 import { SchoolDetailsService } from './school-details.service';
 import { SchoolDetailsRoutingModule } from './school-details-routing.module';
-import { MatInputModule, MatFormFieldModule } from '@angular/material';
+import { MatInputModule, MatFormFieldModule, MatButtonModule, MatTableModule, MatPaginatorModule } from '@angular/material';
 
 
 @NgModule({
@@ -14,7 +14,11 @@ import { MatInputModule, MatFormFieldModule } from '@angular/material';
     CommonModule,
     SchoolDetailsRoutingModule,
     MatInputModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatButtonModule,
+    MatTableModule,
+    MatPaginatorModule
+    
     
   ],
   providers: [
