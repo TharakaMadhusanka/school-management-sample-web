@@ -22,19 +22,19 @@ export class SchoolDetailsComponent implements OnInit, AfterViewInit {
   searchBy = '';
 
  
-  schoolslist = new MatTableDataSource();
+  schoolslist: any  = [];
   displayedColumns: string[] = [ 'SchoolName', 'Address', 'NoOfStudents', 'Button'];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   ngOnInit() {
-    this.schoolslist.paginator = this.paginator;
   }
 
   // To get list of schools
   getSchoolsList() {
     this.schoolService.getListOfSchools(this.pageNumber, this.noOfRows, this.searchBy).subscribe((data:any) => {
-      this.schoolslist = data;
+      this.schoolslist = new MatTableDataSource<any>(data);
+      this.schoolslist.paginator = this.paginator;
     });
 
 
