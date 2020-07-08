@@ -3,11 +3,15 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import { SchoolDetailsService } from './school-details.service';
 
+
+const ELEMENT_DATA = [];
+
 @Component({
   selector: 'app-school-details',
   templateUrl: './school-details.component.html',
   styleUrls: ['./school-details.component.css']
 })
+
 export class SchoolDetailsComponent implements OnInit, AfterViewInit {
 
   constructor(private schoolService: SchoolDetailsService) { }
@@ -17,19 +21,20 @@ export class SchoolDetailsComponent implements OnInit, AfterViewInit {
   noOfRows = '10';
   searchBy = '';
 
-  schoolslist = new MatTableDataSource<any>();
+ 
+  schoolslist = new MatTableDataSource();
   displayedColumns: string[] = [ 'SchoolName', 'Address', 'NoOfStudents', 'Button'];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   ngOnInit() {
+    this.schoolslist.paginator = this.paginator;
   }
 
   // To get list of schools
   getSchoolsList() {
     this.schoolService.getListOfSchools(this.pageNumber, this.noOfRows, this.searchBy).subscribe((data:any) => {
       this.schoolslist = data;
-      this.schoolslist.paginator = this.paginator;
     });
 
 
@@ -42,5 +47,6 @@ export class SchoolDetailsComponent implements OnInit, AfterViewInit {
   deleteRecord(record: any) {
     console.log(record);
   }
+
 
 }
