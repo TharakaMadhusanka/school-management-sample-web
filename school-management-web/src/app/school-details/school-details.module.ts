@@ -5,11 +5,13 @@ import { SchoolDetailsService } from './school-details.service';
 import { SchoolDetailsRoutingModule } from './school-details-routing.module';
 import { MatInputModule, MatFormFieldModule, MatButtonModule, MatTableModule, MatPaginatorModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NumbersOnlyDirective } from './numbers-only.directive';
 
 
 @NgModule({
   declarations: [
-    SchoolDetailsComponent
+    SchoolDetailsComponent,
+    NumbersOnlyDirective
   ],
   imports: [
     CommonModule,
