@@ -1,7 +1,8 @@
-import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import { SchoolDetailsService } from './school-details.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 
 const ELEMENT_DATA = [];
@@ -23,9 +24,21 @@ export class SchoolDetailsComponent implements OnInit, AfterViewInit {
 
  
   schoolslist: any  = [];
-  displayedColumns: string[] = [ 'SchoolName', 'Address', 'NoOfStudents', 'Button'];
+  displayedColumns: string[] = [ 'SchoolName', 'Address', 'NoOfStudents', 'delete', 'edit'];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild('editbtn', {static: true}) editbtn: ElementRef;
+
+  updateSchoolFrm = new FormGroup({
+      SchoolId : new FormControl(null),
+      SchoolName: new FormControl('', [Validators.required]),
+      Street: new FormControl('', [Validators.required]),
+      Suburb: new FormControl(''),
+      PostCode: new FormControl('', [Validators.required]),
+      StateId: new FormControl('',[Validators.required]),
+      NoOfRegisteredStudents: new FormControl(0),
+      Type: new FormControl(null)
+  });
 
   ngOnInit() {
   }
@@ -45,7 +58,8 @@ export class SchoolDetailsComponent implements OnInit, AfterViewInit {
   }
 
   deleteRecord(record: any) {
-    console.log(record);
+    console.log(this.editbtn.nativeElement);
+    this.editbtn.nativeElement.click();
   }
 
 

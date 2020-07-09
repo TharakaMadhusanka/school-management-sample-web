@@ -4,6 +4,7 @@ import { SchoolDetailsComponent } from './school-details.component';
 import { SchoolDetailsService } from './school-details.service';
 import { SchoolDetailsRoutingModule } from './school-details-routing.module';
 import { MatInputModule, MatFormFieldModule, MatButtonModule, MatTableModule, MatPaginatorModule } from '@angular/material';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { MatInputModule, MatFormFieldModule, MatButtonModule, MatTableModule, Ma
     MatFormFieldModule,
     MatButtonModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    ReactiveFormsModule
     
     
   ],
