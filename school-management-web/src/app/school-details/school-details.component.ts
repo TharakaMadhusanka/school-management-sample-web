@@ -72,6 +72,10 @@ export class SchoolDetailsComponent implements OnInit, AfterViewInit {
       selectedRow['NoOfRegisteredStudents'],
       '3').subscribe((response: Response) => {
         console.log(response);
+        if (response.status == 200 ) {
+          this.schoolslist.data.splice(selectedRow,1);
+          this.schoolslist._updateChangeSubscription();
+        }
       });
 
   }
