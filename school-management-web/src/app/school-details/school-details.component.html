@@ -1,7 +1,24 @@
 <div class="container">
   <div class="row">
+    <div class="col-md-8 col-xs-8 col-sm-8 col-lg-8">
+      <mat-form-field>
+        <mat-label>Search</mat-label>
+        <input matInput (keyup)="applyFilter($event)" [(ngModel)]="searchBy" #input>
+        <button mat-button *ngIf="searchBy" matSuffix mat-icon-button aria-label="Clear" 
+              (click)="clearFilter()">
+          <mat-icon>&times;</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-md-12 col-xs-12 col-sm-12 mat-elevation-z8">
       <table mat-table [dataSource]="schoolslist" class="table table-striped table-hover">
+
+        <ng-container matColumnDef="No">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+          <td mat-cell *matCellDef="let i = index"> {{i + 1}} </td>
+        </ng-container>
 
         <ng-container matColumnDef="SchoolName">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> School Name </th>
@@ -41,7 +58,7 @@
 
 <!-- Trigger the update school modal -->
 <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#schooleditmodal" #editbtn
-  hidden></button>
+        hidden></button>
 <!--Trigger the warning modal -->
 <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#warningmodal" #warningbtn hidden>
 </button>

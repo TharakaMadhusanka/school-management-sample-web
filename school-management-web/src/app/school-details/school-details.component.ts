@@ -22,9 +22,8 @@ export class SchoolDetailsComponent implements OnInit, AfterViewInit {
   noOfRows = '10';
   searchBy = '';
 
-
   schoolslist: any = [];
-  displayedColumns: string[] = ['SchoolName', 'Address', 'NoOfStudents', 'buttons'];
+  displayedColumns: string[] = ['No', 'SchoolName', 'Address', 'NoOfStudents', 'buttons'];
   selectedTblRow: any = [];
   successMessage = "";
   // this is used to capture what functionality user choose, Add, Edit or Delete
@@ -131,6 +130,16 @@ export class SchoolDetailsComponent implements OnInit, AfterViewInit {
           this.getSchoolsList();
         }
       });
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.schoolslist.filter = filterValue.trim().toLowerCase();
+  }
+
+  clearFilter() {
+    this.schoolslist.filter = '';
+    this.searchBy=''
   }
 
 

@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { SchoolDetailsComponent } from './school-details.component';
 import { SchoolDetailsService } from './school-details.service';
 import { SchoolDetailsRoutingModule } from './school-details-routing.module';
-import { MatInputModule, MatFormFieldModule, MatButtonModule, MatTableModule, MatPaginatorModule } from '@angular/material';
-import { ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule, MatFormFieldModule, MatButtonModule, MatTableModule, MatPaginatorModule, MatIconModule } from '@angular/material';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NumbersOnlyDirective } from './numbers-only.directive';
 
 
@@ -21,7 +21,9 @@ import { NumbersOnlyDirective } from './numbers-only.directive';
     MatButtonModule,
     MatTableModule,
     MatPaginatorModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatIconModule,
+    FormsModule
     
     
   ],
