@@ -27,6 +27,8 @@ export class SchoolDetailsComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['SchoolName', 'Address', 'NoOfStudents', 'buttons'];
   selectedTblRow: any = [];
   successMessage = "";
+  // this is used to capture what functionality user choose, Add, Edit or Delete
+  typeId: string = '0';
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild('editbtn', { static: true }) editbtn: ElementRef;
@@ -64,7 +66,7 @@ export class SchoolDetailsComponent implements OnInit, AfterViewInit {
 
   deleteRecord() {
     let selectedRow = this.schoolslist.filteredData[this.selectedTblRow];
-    console.log(selectedRow);
+    this.typeId = '3'
     this.schoolService.updateSchool(
       selectedRow['SchoolId'],
       selectedRow['SchoolName'],
@@ -73,13 +75,15 @@ export class SchoolDetailsComponent implements OnInit, AfterViewInit {
       selectedRow['StateId'],
       selectedRow['PostCode'],
       selectedRow['NoOfRegisteredStudents'],
-      '3').subscribe((response: Response) => {
-        console.log(response);
-        if (response.status == 200 ) {
-          this.schoolslist.data.splice(selectedRow,1);
+      this.typeId).subscribe((response: Response) => {
+        if (response.status == 200) {
+          this.schoolslist.data.splice(selectedRow, 1);
           this.schoolslist._updateChangeSubscription();
           this.successMessage = "Successfully deleted.";
           this.successbtn.nativeElement.click();
+        }
+        else {
+          this.errorbtn.nativeElement.click();
         }
       });
 
@@ -88,6 +92,45 @@ export class SchoolDetailsComponent implements OnInit, AfterViewInit {
   triggerWarningModal(rowindex: number) {
     this.selectedTblRow = rowindex;
     this.warningbtn.nativeElement.click();
+  }
+
+  triggerAddEditModal(rowindex: number, type: number) {
+    
+    this.selectedTblRow = rowindex;
+    console.log(type);
+    if (type == 2) {
+      this.updateSchoolFrm.controls.SchoolId.setValue(this.schoolslist.filteredData[rowindex].SchoolId);
+      this.updateSchoolFrm.controls.SchoolName.setValue(this.schoolslist.filteredData[rowindex].SchoolName);
+      this.updateSchoolFrm.controls.Street.setValue(this.schoolslist.filteredData[rowindex].Street);
+      this.updateSchoolFrm.controls.Suburb.setValue(this.schoolslist.filteredData[rowindex].Suburb);
+      this.updateSchoolFrm.controls.PostCode.setValue(this.schoolslist.filteredData[rowindex].PostCode);
+      this.updateSchoolFrm.controls.StateId.setValue(this.schoolslist.filteredData[rowindex].StateId);
+      this.updateSchoolFrm.controls.NoOfRegisteredStudents.setValue(this.schoolslist.filteredData[rowindex].NoOfRegisteredStudents);
+    }
+
+    this.editbtn.nativeElement.click();
+    this.typeId = type.toString();
+  }
+
+  addEditRecord() {
+
+    this.schoolService.updateSchool(
+      this.updateSchoolFrm.controls.SchoolId.value,
+      this.updateSchoolFrm.controls.SchoolName.value,
+      this.updateSchoolFrm.controls.Suburb.value,
+      this.updateSchoolFrm.controls.Street.value,
+      this.updateSchoolFrm.controls.StateId.value,
+      this.updateSchoolFrm.controls.PostCode.value,
+      this.updateSchoolFrm.controls.NoOfRegisteredStudents.value,
+      this.typeId).subscribe((response: Response) => {
+        if (response.status == 200) {
+          this.schoolslist.data = [];
+          this.schoolslist._updateChangeSubscription();
+          this.successMessage = "Successfully saved.";
+          this.successbtn.nativeElement.click();
+          this.getSchoolsList();
+        }
+      });
   }
 
 
