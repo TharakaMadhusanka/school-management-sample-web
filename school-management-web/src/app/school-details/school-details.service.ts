@@ -14,19 +14,20 @@ export class SchoolDetailsService {
 
   url = this.appConfig.appConfigData.apiBaseUrl;
 
-  getListOfSchools(pageNumber: string, noOfRows: string, searchFor: string) : Observable<any> {
+  getListOfSchools(pageNumber: string, noOfRows: string, searchFor: string): Observable<any> {
     let params = new HttpParams().set('noOfRows', noOfRows)
-                                  .set("pageNumber", pageNumber)
-                                  .set("searchFor", searchFor);
-    
+      .set("pageNumber", pageNumber)
+      .set("searchFor", searchFor);
 
-    return this.http.get<any>(this.url, {params: params});
+
+    return this.http.get<any>(this.url, { params: params });
   }
 
-  updateSchool(SchoolId:string, SchoolName: string, Suburb: string, Street: string, StateId: string,
-                PostCode: string, NoOfRegisteredStudents: string,
-                Type: string): Observable<any> {
-    
+  updateSchool(SchoolId: string,
+    SchoolName: string, Suburb: string, Street: string, StateId: string,
+    PostCode: string, NoOfRegisteredStudents: string,
+    Type: string): Observable<any> {
+
     let requestBody = {
       "SchoolName": SchoolName,
       "SchoolId": SchoolId,
@@ -38,6 +39,6 @@ export class SchoolDetailsService {
       "Type": Type
     };
 
-    return this.http.post<any>(this.url + 'UpdateSchool',requestBody,{ observe: 'response' });
+    return this.http.post<any>(this.url + 'UpdateSchool', requestBody, { observe: 'response' });
   }
 }

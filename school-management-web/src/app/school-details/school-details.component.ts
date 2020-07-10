@@ -3,9 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { SchoolDetailsService } from './school-details.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-
-
-const ELEMENT_DATA = [];
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-school-details',
@@ -15,7 +13,7 @@ const ELEMENT_DATA = [];
 
 export class SchoolDetailsComponent implements OnInit, AfterViewInit {
 
-  constructor(private schoolService: SchoolDetailsService) { }
+  constructor(private schoolService: SchoolDetailsService, private spinner: NgxSpinnerService) { }
 
   // Default Pagination Values
   pageNumber = '1';
@@ -51,9 +49,11 @@ export class SchoolDetailsComponent implements OnInit, AfterViewInit {
 
   // To get list of schools
   getSchoolsList() {
+    this.spinner.show();
     this.schoolService.getListOfSchools(this.pageNumber, this.noOfRows, this.searchBy).subscribe((data: any) => {
       this.schoolslist = new MatTableDataSource<any>(data);
       this.schoolslist.paginator = this.paginator;
+      this.spinner.hide();
     });
 
 
@@ -66,6 +66,7 @@ export class SchoolDetailsComponent implements OnInit, AfterViewInit {
   deleteRecord() {
     let selectedRow = this.schoolslist.filteredData[this.selectedTblRow];
     this.typeId = '3'
+    this.spinner.show();
     this.schoolService.updateSchool(
       selectedRow['SchoolId'],
       selectedRow['SchoolName'],
@@ -84,6 +85,8 @@ export class SchoolDetailsComponent implements OnInit, AfterViewInit {
         else {
           this.errorbtn.nativeElement.click();
         }
+
+        this.spinner.hide();
       });
 
   }
@@ -96,7 +99,7 @@ export class SchoolDetailsComponent implements OnInit, AfterViewInit {
   triggerAddEditModal(rowindex: number, type: number) {
     
     this.selectedTblRow = rowindex;
-    console.log(type);
+
     if (type == 2) {
       this.updateSchoolFrm.controls.SchoolId.setValue(this.schoolslist.filteredData[rowindex].SchoolId);
       this.updateSchoolFrm.controls.SchoolName.setValue(this.schoolslist.filteredData[rowindex].SchoolName);
@@ -113,6 +116,7 @@ export class SchoolDetailsComponent implements OnInit, AfterViewInit {
 
   addEditRecord() {
 
+    this.spinner.show();
     this.schoolService.updateSchool(
       this.updateSchoolFrm.controls.SchoolId.value,
       this.updateSchoolFrm.controls.SchoolName.value,
@@ -127,6 +131,7 @@ export class SchoolDetailsComponent implements OnInit, AfterViewInit {
           this.schoolslist._updateChangeSubscription();
           this.successMessage = "Successfully saved.";
           this.successbtn.nativeElement.click();
+          this.spinner.hide();
           this.getSchoolsList();
         }
       });
