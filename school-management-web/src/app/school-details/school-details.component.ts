@@ -26,10 +26,13 @@ export class SchoolDetailsComponent implements OnInit, AfterViewInit {
   schoolslist: any = [];
   displayedColumns: string[] = ['SchoolName', 'Address', 'NoOfStudents', 'buttons'];
   selectedTblRow: any = [];
+  successMessage = "";
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild('editbtn', { static: true }) editbtn: ElementRef;
   @ViewChild('warningbtn', { static: true }) warningbtn: ElementRef;
+  @ViewChild('successbtn', { static: true }) successbtn: ElementRef;
+  @ViewChild('errorbtn', { static: true }) errorbtn: ElementRef;
 
   updateSchoolFrm = new FormGroup({
     SchoolId: new FormControl(null),
@@ -75,6 +78,8 @@ export class SchoolDetailsComponent implements OnInit, AfterViewInit {
         if (response.status == 200 ) {
           this.schoolslist.data.splice(selectedRow,1);
           this.schoolslist._updateChangeSubscription();
+          this.successMessage = "Successfully deleted.";
+          this.successbtn.nativeElement.click();
         }
       });
 

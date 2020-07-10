@@ -21,7 +21,7 @@
         <ng-container matColumnDef="buttons">
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let element; let i= index">
-            <button mat-button  type="button" (click)="deleteRecord(i)" class="btn btn-danger">
+            <button mat-button type="button" (click)="deleteRecord(i)" class="btn btn-danger">
               <i class="fa fa-pencil" aria-hidden="true"></i>
             </button>
             <button mat-button type="button" (click)="triggerWarningModal(i)" class="btn btn-danger">
@@ -42,8 +42,14 @@
 <!-- Trigger the update school modal -->
 <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#schooleditmodal" #editbtn
   hidden></button>
-  <!--Trigger the warning modal -->
-<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#warningmodal" #warningbtn  hidden>
+<!--Trigger the warning modal -->
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#warningmodal" #warningbtn hidden>
+</button>
+<!--Trigger the success modal -->
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#successmodal" #successbtn hidden>
+</button>
+<!--Trigger the warning modal -->
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#errormodal" #errorbtn hidden>
 </button>
 
 
@@ -117,7 +123,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button [disabled]="!updateSchoolFrm.valid" class="btn btn-primary" mat-button >Save</button>
+            <button [disabled]="!updateSchoolFrm.valid" class="btn btn-primary" mat-button>Save</button>
             <button type="button" class="btn btn-default" data-dismiss="modal" mat-button>Close</button>
           </div>
         </form>
@@ -137,12 +143,54 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
-        <i class="fa fa-exclamation" aria-hidden="true"></i>
+        <i class="fa fa-exclamation" aria-hidden="true"></i>&nbsp;
         <span>Are you sure you want to delete?</span>
       </div>
       <div class="modal-footer">
-        <button  class="btn btn-primary" (click)="deleteRecord()" data-dismiss="modal">Yes</button>
+        <button class="btn btn-primary" (click)="deleteRecord()" data-dismiss="modal">Yes</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Success Modal -->
+<div id="successmodal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <i class="fa fa-check-circle" aria-hidden="true"></i>&nbsp;
+        <span>{{successMessage}}</span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Error Modal -->
+<div id="errormodal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <i class="fa fa-times" aria-hidden="true"></i>&nbsp;
+        <span>Oopz! Something went wrong. We are aware of this and will fix soon. Thank you.</span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
       </div>
     </div>
 
