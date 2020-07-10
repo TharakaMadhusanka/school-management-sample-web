@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { SchoolDetailsService } from './school-details.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
@@ -22,22 +22,24 @@ export class SchoolDetailsComponent implements OnInit, AfterViewInit {
   noOfRows = '10';
   searchBy = '';
 
- 
-  schoolslist: any  = [];
-  displayedColumns: string[] = [ 'SchoolName', 'Address', 'NoOfStudents', 'delete', 'edit'];
 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild('editbtn', {static: true}) editbtn: ElementRef;
+  schoolslist: any = [];
+  displayedColumns: string[] = ['SchoolName', 'Address', 'NoOfStudents', 'buttons'];
+  selectedTblRow: any = [];
+
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild('editbtn', { static: true }) editbtn: ElementRef;
+  @ViewChild('warningbtn', { static: true }) warningbtn: ElementRef;
 
   updateSchoolFrm = new FormGroup({
-      SchoolId : new FormControl(null),
-      SchoolName: new FormControl('', [Validators.required]),
-      Street: new FormControl('', [Validators.required]),
-      Suburb: new FormControl(''),
-      PostCode: new FormControl('', [Validators.required]),
-      StateId: new FormControl('',[Validators.required]),
-      NoOfRegisteredStudents: new FormControl(0),
-      Type: new FormControl(null)
+    SchoolId: new FormControl(null),
+    SchoolName: new FormControl('', [Validators.required]),
+    Street: new FormControl('', [Validators.required]),
+    Suburb: new FormControl(''),
+    PostCode: new FormControl('', [Validators.required]),
+    StateId: new FormControl('', [Validators.required]),
+    NoOfRegisteredStudents: new FormControl(0),
+    Type: new FormControl(null)
   });
 
   ngOnInit() {
@@ -45,7 +47,7 @@ export class SchoolDetailsComponent implements OnInit, AfterViewInit {
 
   // To get list of schools
   getSchoolsList() {
-    this.schoolService.getListOfSchools(this.pageNumber, this.noOfRows, this.searchBy).subscribe((data:any) => {
+    this.schoolService.getListOfSchools(this.pageNumber, this.noOfRows, this.searchBy).subscribe((data: any) => {
       this.schoolslist = new MatTableDataSource<any>(data);
       this.schoolslist.paginator = this.paginator;
     });
@@ -57,9 +59,26 @@ export class SchoolDetailsComponent implements OnInit, AfterViewInit {
     this.getSchoolsList();
   }
 
-  deleteRecord(record: any) {
-    console.log(this.editbtn.nativeElement);
-    this.editbtn.nativeElement.click();
+  deleteRecord() {
+    let selectedRow = this.schoolslist.filteredData[this.selectedTblRow];
+    console.log(selectedRow);
+    this.schoolService.updateSchool(
+      selectedRow['SchoolId'],
+      selectedRow['SchoolName'],
+      selectedRow['Suburb'],
+      selectedRow['Street'],
+      selectedRow['StateId'],
+      selectedRow['PostCode'],
+      selectedRow['NoOfRegisteredStudents'],
+      '3').subscribe((response: Response) => {
+        console.log(response);
+      });
+
+  }
+
+  triggerWarningModal(rowindex: number) {
+    this.selectedTblRow = rowindex;
+    this.warningbtn.nativeElement.click();
   }
 
 

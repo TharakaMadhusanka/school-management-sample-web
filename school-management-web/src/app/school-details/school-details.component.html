@@ -1,44 +1,3 @@
-<!-- <div class="container">
-    <div class="row">
-        <div class="col-md-12 col-xs-12 col-sm-12">
-            <table class="table table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th>
-                            <mat-form-field>
-                                <mat-label>Input</mat-label>
-                                <input matInput>
-                            </mat-form-field>
-                        </th>
-                        <th>
-                          <button mat-button color="primary">Primary</button>
-                        </th>
-                    </tr>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">School Name</th>
-                    <th scope="col">Address</th>
-                    <th scope="col">Number Of Students</th>
-                    <th scope="col">&nbsp;</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let school of schoolslist; let index = index">
-                    <th scope="row">{{index + 1}}</th>
-                    <td>{{school.SchoolName}}</td>
-                    <td>{{school.Address}}</td>
-                    <td>{{school.NoOfRegisteredStudents}}</td>
-                    <td>
-                        <button type="button"></button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-        </div>
-    </div>
-</div> -->
-
-
 <div class="container">
   <div class="row">
     <div class="col-md-12 col-xs-12 col-sm-12 mat-elevation-z8">
@@ -59,20 +18,14 @@
           <td mat-cell *matCellDef="let element"> {{element.NoOfRegisteredStudents}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="delete">
+        <ng-container matColumnDef="buttons">
           <th mat-header-cell *matHeaderCellDef></th>
-          <td mat-cell *matCellDef="let element">
-            <button type="button" (click)="deleteRecord(element)" class="btn btn-danger">
-              <i class="fa fa-trash" aria-hidden="true"></i>
-            </button>
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="edit">
-          <th mat-header-cell *matHeaderCellDef></th>
-          <td mat-cell *matCellDef="let element">
-            <button type="button" (click)="deleteRecord(element)" class="btn btn-danger">
+          <td mat-cell *matCellDef="let element; let i= index">
+            <button mat-button  type="button" (click)="deleteRecord(i)" class="btn btn-danger">
               <i class="fa fa-pencil" aria-hidden="true"></i>
+            </button>
+            <button mat-button type="button" (click)="triggerWarningModal(i)" class="btn btn-danger">
+              <i class="fa fa-trash" aria-hidden="true"></i>
             </button>
           </td>
         </ng-container>
@@ -86,10 +39,16 @@
   </div>
 </div>
 
-<!-- Trigger the modal with a button -->
-<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#schooleditmodal" #editbtn hidden>Open Modal</button>
+<!-- Trigger the update school modal -->
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#schooleditmodal" #editbtn
+  hidden></button>
+  <!--Trigger the warning modal -->
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#warningmodal" #warningbtn  hidden>
+</button>
 
-<!-- Modal -->
+
+
+<!-- Update School Modal -->
 <div id="schooleditmodal" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
@@ -99,69 +58,91 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
-        <form [formGroup] ="updateSchoolFrm">
-            <div class="row">
-              <div class="col-md-6 col-xs-12 col-sm-12">
-                <mat-form-field>
-                    <mat-label>School Name</mat-label>
-                    <input matInput  formControlName="SchoolName">
-                    <mat-error *ngIf="updateSchoolFrm.controls.SchoolName.hasError('required')">
-                      School Name is required.
-                    </mat-error>
-                </mat-form-field>
-              </div>
-              <div class="col-md-6 col-xs-12 col-sm-12">
-                <mat-form-field>
-                    <mat-label>Street</mat-label>
-                    <input matInput  formControlName="Street">
-                    <mat-error *ngIf="updateSchoolFrm.controls.Street.hasError('required')">
-                      Street is required.
-                    </mat-error>
-                </mat-form-field>
-              </div>
+        <form [formGroup]="updateSchoolFrm">
+          <div class="row">
+            <div class="col-md-6 col-xs-12 col-sm-12">
+              <mat-form-field>
+                <mat-label>School Name</mat-label>
+                <input matInput formControlName="SchoolName">
+                <mat-error *ngIf="updateSchoolFrm.controls.SchoolName.hasError('required')">
+                  School Name is required.
+                </mat-error>
+              </mat-form-field>
             </div>
-            <div class="row">
-              <div class="col-md-6 col-xs-12 col-sm-12">
-                <mat-form-field>
-                    <mat-label>Suburb</mat-label>
-                    <input matInput  formControlName="Suburb">
-                    <mat-error *ngIf="updateSchoolFrm.controls.Suburb.hasError('required')">
-                      Suburb is required.
-                    </mat-error>
-                </mat-form-field>
-              </div>
-              <div class="col-md-6 col-xs-12 col-sm-12">
-                <mat-form-field>
-                    <mat-label>Post Code</mat-label>
-                    <input matInput  formControlName="PostCode" numbersOnly>
-                    <mat-error *ngIf="updateSchoolFrm.controls.PostCode.hasError('required')">
-                      Post Code is required.
-                    </mat-error>
-                </mat-form-field>
-              </div>
+            <div class="col-md-6 col-xs-12 col-sm-12">
+              <mat-form-field>
+                <mat-label>Street</mat-label>
+                <input matInput formControlName="Street">
+                <mat-error *ngIf="updateSchoolFrm.controls.Street.hasError('required')">
+                  Street is required.
+                </mat-error>
+              </mat-form-field>
             </div>
-            <div class="row">
-              <div class="col-md-6 col-xs-12 col-sm-12">
-                <mat-form-field>
-                    <mat-label>State</mat-label>
-                    <input matInput  formControlName="StateId">
-                    <mat-error *ngIf="updateSchoolFrm.controls.StateId.hasError('required')">
-                      State is required.
-                    </mat-error>
-                </mat-form-field>
-              </div>
-              <div class="col-md-6 col-xs-12 col-sm-12">
-                <mat-form-field>
-                    <mat-label>No Of Registered Students</mat-label>
-                    <input matInput  formControlName="NoOfRegisteredStudents" numbersOnly>
-                </mat-form-field>
-              </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-xs-12 col-sm-12">
+              <mat-form-field>
+                <mat-label>Suburb</mat-label>
+                <input matInput formControlName="Suburb">
+                <mat-error *ngIf="updateSchoolFrm.controls.Suburb.hasError('required')">
+                  Suburb is required.
+                </mat-error>
+              </mat-form-field>
             </div>
-            <div class="modal-footer">
-              <button [disabled] ="!updateSchoolFrm.valid" class="btn btn-primary">Save</button>
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <div class="col-md-6 col-xs-12 col-sm-12">
+              <mat-form-field>
+                <mat-label>Post Code</mat-label>
+                <input matInput formControlName="PostCode" numbersOnly>
+                <mat-error *ngIf="updateSchoolFrm.controls.PostCode.hasError('required')">
+                  Post Code is required.
+                </mat-error>
+              </mat-form-field>
             </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-xs-12 col-sm-12">
+              <mat-form-field>
+                <mat-label>State</mat-label>
+                <input matInput formControlName="StateId">
+                <mat-error *ngIf="updateSchoolFrm.controls.StateId.hasError('required')">
+                  State is required.
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-md-6 col-xs-12 col-sm-12">
+              <mat-form-field>
+                <mat-label>No Of Registered Students</mat-label>
+                <input matInput formControlName="NoOfRegisteredStudents" numbersOnly>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button [disabled]="!updateSchoolFrm.valid" class="btn btn-primary" mat-button >Save</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal" mat-button>Close</button>
+          </div>
         </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Warning Modal -->
+<div id="warningmodal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <i class="fa fa-exclamation" aria-hidden="true"></i>
+        <span>Are you sure you want to delete?</span>
+      </div>
+      <div class="modal-footer">
+        <button  class="btn btn-primary" (click)="deleteRecord()">Yes</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
       </div>
     </div>
 
