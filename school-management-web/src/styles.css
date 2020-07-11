@@ -5,8 +5,9 @@ html,
 body
 {
     font-family: 'Poppins';
-    padding: 10px;
     font-size: 13px;
+    height: 100%;
+    margin: 0;
 }
 body div.cdk-overlay-container {
     z-index: 9999;
@@ -36,5 +37,14 @@ tr.mat-footer-row, tr.mat-row {
 
 .mat-cell, .mat-footer-cell {
     font-size: 13px !important;
+}
+
+.home-pg {
+  background-image: url('./assets/img/bg-1.jpg');
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: black;
 }
 
