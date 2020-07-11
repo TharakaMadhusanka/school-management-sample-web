@@ -112,6 +112,7 @@ export class SchoolDetailsComponent implements OnInit, AfterViewInit {
   triggerAddEditModal(rowindex: number, type: number) {
     
     this.selectedTblRow = rowindex;
+    this.updateSchoolFrm.reset();
 
     if (type == 2) {
       this.updateSchoolFrm.controls.SchoolId.setValue(this.schoolslist.filteredData[rowindex].SchoolId);
@@ -126,6 +127,7 @@ export class SchoolDetailsComponent implements OnInit, AfterViewInit {
     this.editbtn.nativeElement.click();
     this.typeId = type.toString();
   }
+
 
   addEditRecord() {
 
