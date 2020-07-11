@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Modak&family=Rubik+Mono+One&display=swap');
 
 html,
 body
@@ -40,11 +41,45 @@ tr.mat-footer-row, tr.mat-row {
 }
 
 .home-pg {
-  background-image: url('./assets/img/bg-1.jpg');
+  background-image: url('./assets/img/bg-8.jpg');
   height: 100%;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   background-color: black;
+}
+
+.enter-panel {
+    position: absolute;
+    top: 25%;
+    right: 0;
+    background-color: #2A0563;
+    width: 50%;
+    height: 70%;
+    text-align: center;
+    padding: 10px;
+    color: #ffffff;
+}
+
+.enter-panel h1 {
+    font-size: 3rem;
+    text-align: left;
+}
+
+.enter-panel p {
+    font-size: 2rem;
+    text-align: center;
+}
+
+.enter-panel p strong{
+    font-size: 4rem;
+    text-decoration: underline;
+}
+
+.enter-panel img {
+    max-width:200px ; 
+    max-height: 200px;
+    background-color: white;
+    border-radius: 50%;
 }
 
