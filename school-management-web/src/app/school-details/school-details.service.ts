@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { AppConfigService } from 'src/common/service/app-config.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { SchoolDataModel } from 'src/data-model/school-model';
 
 @Injectable()
 export class SchoolDetailsService {

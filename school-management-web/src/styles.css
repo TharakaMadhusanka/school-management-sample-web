@@ -1,5 +1,40 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&family=Roboto&display=swap');
+
+html,
+body
+{
+    font-family: 'Poppins';
+    padding: 10px;
+    font-size: 13px;
+}
 body div.cdk-overlay-container {
     z-index: 9999;
-  }
+}
+
+.mat-form-field {
+    width: 100%;
+}
+
+.mat-elevation-z8 {
+    padding: 15px;
+}
+
+td.mat-cell, td.mat-footer-cell, th.mat-header-cell {
+    padding: 5px !important;
+    vertical-align: middle !important;
+}
+
+tr.mat-footer-row, tr.mat-row {
+    height: auto !important;
+}
+
+.table thead th {
+    font-size: 13px !important;
+    font-weight: 500;
+}
+
+.mat-cell, .mat-footer-cell {
+    font-size: 13px !important;
+}
 

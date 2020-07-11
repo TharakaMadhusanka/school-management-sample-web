@@ -1,25 +1,29 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-8 col-xs-8 col-sm-8">
-      <mat-form-field>
-        <mat-label>Search</mat-label>
-        <input matInput (keyup)="applyFilter($event)" [(ngModel)]="searchBy" #input>
-        <button mat-button *ngIf="searchBy" matSuffix mat-icon-button aria-label="Clear" 
-              (click)="clearFilter()">
-          <mat-icon>&times;</mat-icon>
-        </button>
-      </mat-form-field>
-    </div>
-    <div class="col-md-4 col-xs-4 col-sm-4">
-      <button type="button" (click)="triggerAddEditModal(-1,1)" class="btn btn-primary">
-        <i class="fa fa-plus-square" aria-hidden="true"></i>
-        <span>Add New School</span>
-      </button>
-    </div>
+    <h2>
+      <strong>List of Schools - SkoolBag</strong></h2>
   </div>
   <div class="row">
     <div class="col-md-12 col-xs-12 col-sm-12 mat-elevation-z8">
-      <table mat-table [dataSource]="schoolslist" class="table table-striped table-hover">
+      <div class="row">
+        <div class="col-md-8 col-xs-8 col-sm-8">
+          <mat-form-field>
+            <mat-label>Search</mat-label>
+            <input matInput (keyup)="applyFilter($event)" [(ngModel)]="searchBy" #input>
+            <button mat-button *ngIf="searchBy" matSuffix mat-icon-button aria-label="Clear" 
+                  (click)="clearFilter()">
+              <mat-icon>&times;</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+        <div class="col-md-4 col-xs-4 col-sm-4">
+          <button type="button" (click)="triggerAddEditModal(-1,1)" class="btn btn-primary">
+            <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;
+            <span>Add New School</span>
+          </button>
+        </div>
+      </div>
+      <table mat-table [dataSource]="schoolslist" class="table table-striped table-hover table-bordered">
 
         <ng-container matColumnDef="No">
           <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
@@ -91,7 +95,7 @@
           <div class="row">
             <div class="col-md-6 col-xs-12 col-sm-12">
               <mat-form-field>
-                <mat-label>School Name</mat-label>
+                <mat-label>School Name *</mat-label>
                 <input matInput formControlName="SchoolName">
                 <mat-error *ngIf="updateSchoolFrm.controls.SchoolName.hasError('required')">
                   School Name is required.
@@ -100,7 +104,7 @@
             </div>
             <div class="col-md-6 col-xs-12 col-sm-12">
               <mat-form-field>
-                <mat-label>Street</mat-label>
+                <mat-label>Street *</mat-label>
                 <input matInput formControlName="Street">
                 <mat-error *ngIf="updateSchoolFrm.controls.Street.hasError('required')">
                   Street is required.
@@ -111,7 +115,7 @@
           <div class="row">
             <div class="col-md-6 col-xs-12 col-sm-12">
               <mat-form-field>
-                <mat-label>Suburb</mat-label>
+                <mat-label>Suburb *</mat-label>
                 <input matInput formControlName="Suburb">
                 <mat-error *ngIf="updateSchoolFrm.controls.Suburb.hasError('required')">
                   Suburb is required.
@@ -120,7 +124,7 @@
             </div>
             <div class="col-md-6 col-xs-12 col-sm-12">
               <mat-form-field>
-                <mat-label>Post Code</mat-label>
+                <mat-label>Post Code *</mat-label>
                 <input matInput formControlName="PostCode" numbersOnly>
                 <mat-error *ngIf="updateSchoolFrm.controls.PostCode.hasError('required')">
                   Post Code is required.
@@ -131,12 +135,15 @@
           <div class="row">
             <div class="col-md-6 col-xs-12 col-sm-12">
               <mat-form-field>
-                <mat-label>State</mat-label>
+                <mat-label>State *</mat-label>
                 <mat-select  formControlName="StateId" disableOptionCentering>
                   <mat-option *ngFor="let state of stateslist" [value]="state.Id">
                     {{state.StateName}}
                   </mat-option>
                 </mat-select>
+                <mat-error *ngIf="updateSchoolFrm.controls.StateId.hasError('required')">
+                  State is required.
+                </mat-error>
               </mat-form-field>
             </div>
             <div class="col-md-6 col-xs-12 col-sm-12">

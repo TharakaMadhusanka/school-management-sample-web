@@ -35,14 +35,14 @@ export class SchoolDetailsComponent implements OnInit, AfterViewInit {
   @ViewChild('errorbtn', { static: true }) errorbtn: ElementRef;
 
   updateSchoolFrm = new FormGroup({
-    SchoolId: new FormControl(null),
+    SchoolId: new FormControl('0'),
     SchoolName: new FormControl('', [Validators.required]),
     Street: new FormControl('', [Validators.required]),
     Suburb: new FormControl(''),
     PostCode: new FormControl('', [Validators.required]),
     StateId: new FormControl('', [Validators.required]),
     NoOfRegisteredStudents: new FormControl(0),
-    Type: new FormControl(null)
+    Type: new FormControl('0')
   });
 
   ngOnInit() {
