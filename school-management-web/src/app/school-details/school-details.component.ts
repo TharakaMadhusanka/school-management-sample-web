@@ -21,6 +21,7 @@ export class SchoolDetailsComponent implements OnInit, AfterViewInit {
   searchBy = '';
 
   schoolslist: any = [];
+  stateslist: any = [];
   displayedColumns: string[] = ['No', 'SchoolName', 'Address', 'NoOfStudents', 'buttons'];
   selectedTblRow: any = [];
   successMessage = "";
@@ -55,12 +56,24 @@ export class SchoolDetailsComponent implements OnInit, AfterViewInit {
       this.schoolslist.paginator = this.paginator;
       this.spinner.hide();
     });
+  }
 
-
+  getStatesList() {
+    this.spinner.show();
+    this.schoolService.getStatesList().subscribe((response: Response) => {
+      if (response.status == 200) {
+        this.stateslist = response.body;
+      }
+      else {
+        this.errorbtn.nativeElement.click();
+      }
+      this.spinner.hide();
+    });
   }
 
   ngAfterViewInit() {
     this.getSchoolsList();
+    this.getStatesList();
   }
 
   deleteRecord() {
