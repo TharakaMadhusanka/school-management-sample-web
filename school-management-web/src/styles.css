@@ -51,18 +51,20 @@ tr.mat-footer-row, tr.mat-row {
 
 .enter-panel {
     position: absolute;
-    top: 25%;
+    top: 0%;
     right: 0;
-    background-color: #2A0563;
+    background-color: rgba(0,0,139, 0.7);
     width: 50%;
-    height: 70%;
+    height: 100%;
     text-align: center;
     padding: 10px;
     color: #ffffff;
+    border-top-left-radius: 100%;
+    padding-top: 10%;
 }
 
 .enter-panel h1 {
-    font-size: 3rem;
+    font-size: 7rem;
     text-align: left;
 }
 
@@ -74,6 +76,7 @@ tr.mat-footer-row, tr.mat-row {
 .enter-panel p strong{
     font-size: 4rem;
     text-decoration: underline;
+    color: #FF8C00;
 }
 
 .enter-panel img {
