@@ -90,7 +90,7 @@ export class SchoolDetailsComponent implements OnInit, AfterViewInit {
       selectedRow['NoOfRegisteredStudents'],
       this.typeId).subscribe((response: Response) => {
         if (response.status == 200) {
-          this.schoolslist.data.splice(selectedRow, 1);
+          this.schoolslist.data.splice(this.selectedTblRow, 1);
           this.schoolslist._updateChangeSubscription();
           this.successMessage = "Successfully deleted.";
           this.successbtn.nativeElement.click();
